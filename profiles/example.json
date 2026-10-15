@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "process": { "name": "YourApp.exe" },
+  "module": "YourApp.exe",
+  "pointer_size": "auto",
+  "values": [
+    { "name": "counter", "type": "u32", "offsets": ["0x123456"] },
+    { "name": "nested_float", "type": "f32", "offsets": ["0x234560", "0x10", "0x28"] },
+    { "name": "label", "type": "utf8", "length": 64, "module": "YourLibrary.dll", "offsets": ["0x456780", "0x20"] }
+  ]
+}
+

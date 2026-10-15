@@ -2,7 +2,7 @@ OffsetReader is a Windows x64 KMDF driver with a native C++ client and reusable 
 
 The compiled development driver is **[dist/OffsetReader.sys](dist/OffsetReader.sys)**. It is unsigned. It has been compiled, but has not been loaded or tested in kernel mode. The profile engine and explicit user-mode transport have been tested against a real demo process. See [VERIFICATION.md](VERIFICATION.md) for the evidence and remaining checks.
 
-[dist/OffsetReader.exe](dist/OffsetReader.exe) is the native command-line client. The repository includes that executable and the unsigned driver. Building creates the demo, tests, C++ library, and debug symbols. Running `.\scripts\package.ps1` after a complete build creates `dist/OffsetReader-starter.zip` with those artifacts, source, docs, and setup scripts, excluding the local toolchain download.
+`dist/OffsetReader.exe` is the native command-line client produced by the build. The repository includes the C++ source, docs, and [unsigned driver](dist/OffsetReader.sys). Building creates the client, demo, tests, C++ library, and debug symbols. Running `.\scripts\package.ps1` after a complete build creates `dist/OffsetReader-starter.zip` with those artifacts, source, docs, and setup scripts, excluding the local toolchain download.
 
 To integrate this into another C++ application, start with [docs/CPP_INTEGRATION.md](docs/CPP_INTEGRATION.md), the [public API](client/include/offset_reader/memory.hpp), and `dist/OffsetReaderClient.lib` after building. Other code inside the same driver can call the [internal C++ read function](docs/KERNEL_INTEGRATION.md).
 
@@ -22,7 +22,7 @@ The driver checks a process handle already opened by the reader with `PROCESS_VM
 
 Replace the example PID and address/offset with your target's actual values. Without `--module`, the address is absolute. With `--module`, the offset is added to the module's current base, accommodating ASLR. The default is four raw bytes; `--type` decodes a value using the types listed below. Byte/string reads accept `--size` from 1 to 65,536 bytes. The command returns the value to standard output, or a JSON object with `--json`, and exits 0 on success or 1 on failure. It needs no profile file and never falls back from the driver to user-mode reads.
 
-**Try the native client.** Use Windows 10 version 1709 or newer, or Windows 11, on x64. The supplied executables include the C++ runtime statically. Run these commands from this folder after `./build.ps1 -ClientOnly` creates the demo and tests.
+**Try the native client.** Use Windows 10 version 1709 or newer, or Windows 11, on x64. The native executables include the C++ runtime statically. Run these commands from this folder after `./build.ps1 -ClientOnly` creates the client, demo, and tests.
 
 In one terminal, start the included target and leave it running:
 
